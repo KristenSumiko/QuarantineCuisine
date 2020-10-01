@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quarantine Cuisine</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<header><h1>Quarantine Cuisine</h1></header>
+
+<div id='js-error-message'></div>
+
+<form class="cook">
+    <h2>Cooking during quaratine? Let's do it!</h2>
+    <div class="js-mealTypes">
+        <p>What meal are you making?</p>
+        <label><input type='radio' name='mealType' value='breakfast'>Breakfast</label>
+        <label><input type='radio' name='mealType' value='lunch'>Lunch</label>
+        <label><input type='radio' name='mealType' value='dinner'>Dinner</label>
+        <label><input type='radio' name='mealType' value='dessert'>Dessert</label>
+    </div>
+
+    <div class="js-intolerances">
+        <p>Any allergies?</p>
+        <input type="checkbox" name="intolerance" id="dairy" value="Dairy">
+        <label for="dairy">Dairy</label>
+
+        <input type="checkbox" name="intolerance" id="egg" value="Egg">
+        <label for="egg">Egg</label>
+
+        <input type="checkbox" name="intolerance" id="gluten" value="Gluten">
+        <label for="gluten">Gluten</label>
+
+        <input type="checkbox" name="intolerance" id="grain" value="Grain">
+        <label for="grain">Grain</label>
+
+        <input type="checkbox" name="intolerance" id="peanut" value="Peanut">
+        <label for="peanut">Peanut</label>
+        
+        <input type="checkbox" name="intolerance" id="seafood" value="Seafood">
+        <label for="seafood">Seafood</label>
+
+        <input type="checkbox" name="intolerance" id="sesame" value="Sesame">
+        <label for="sesame">Sesame</label>
+
+        <input type="checkbox" name="intolerance" id="shellfish" value="Shellfish">
+        <label for="shellfish">Shellfish</label>
+
+        <input type="checkbox" name="intolerance" id="soy" value="Soy">
+        <label for="soy">Soy</label>
+
+        <input type="checkbox" name="intolerance" id="sulfite" value="Sulfite">
+        <label for="sulfite">Sulfite</label>
+
+        <input type="checkbox" name="intolerance" id="treeNut" value="Tree Nut">
+        <label for="treeNut">Tree Nut</label>
+
+        <input type="checkbox" name="intolerance" id="wheat" value="Wheat">
+        <label for="Wheat">Wheat</label>
+    </div>
+
+    <input type="submit" id="recipeSearch" value="Search">
+</form>
+
+<div class="drink hidden">
+    <h2>Drinking during quarantine?</h2>
+    <form id="drinkChoice">
+        <p>Wine or Mixed drink?</p>
+
+        <label><input type='radio' name='drinkType' value='wine'>Wine</label>
+        <label><input type='radio' name='drinkType' value='mixedDrink'>Mixed Drink</label>
+        
+        <input type="submit" id="drinkSearch" value="Search">
+
+        <div id="drinkResults"></div>
+    </form>
+</div>
+
+<button class="newRecipe hidden" type="button">New Recipe Search</button>
+
+<body>
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="index.js"></script>
+    <script src="STORE.js"></script>
+</body>
+</html> 
