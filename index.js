@@ -15,7 +15,6 @@
             //calls functions to get recipes show drink choices
             $('.cook').addClass('hidden');
             getMealRecipe ();
-            getWinePairings ();
             getDrinkRecipe ();
             //shows drink form previously hidden
             showDrinkChoices ();
@@ -58,11 +57,11 @@
             .then(responseJson => {
                 STORE.mealRecipe = responseJson;
                 generateMealRecipeHTML(responseJson);
+                getWinePairings ();
             })
             .catch(err => {
             $('#js-error-message').text(`Something went wrong: ${err.message}`);
             });
-            //???update store w meal recipe details??  
     }
 
     function getWinePairings() {
@@ -71,7 +70,7 @@
         const params = {
             apiKey: apiKEY,
             //correct way to access this value????
-            tag: $(STORE.mealRecipe.recipes[0].extendedingredients[0].name).value()
+            tag: STORE.mealRecipe.recipes[0].extendedIngredients[0].name
         }
         const queryString = formatQueryParams(params);
         const url = searchURL + '?' + queryString;
@@ -85,14 +84,15 @@
             .then(responseJson => {
                 STORE.winePairings = responseJson;
                 generateMealRecipeHTML(responseJson);
+                console.log(responseJson);
+                console.log(STORE.winePairings);
             })
             .catch(err => {
             $('#js-error-message').text(`Something went wrong: ${err.message}`);
             });
-            //updates STORE w wine pairings????
 
-            console.log(STORE.winePairings);
-            console.log(responseJson);
+           
+            
             console.log(tag);
     }
 
@@ -105,12 +105,15 @@
                 return response.json();
             }
         })
-        .then(responseJson => generateDrinkRecipeHTML(responseJson))
+        .then(responseJson => {
+            STORE.drinkChoice = responseJson;
+            generateDrinkRecipeHTML(responseJson);
+        })
         .catch(err => {
         $('#js-error-message').text(`Something went wrong: ${err.message}`);
         });
         //update STORE w recipe details??
-        STORE.drinkChoice = responseJson
+        
     }
 
     function generateMealRecipeHTML (mealRecipe) {
