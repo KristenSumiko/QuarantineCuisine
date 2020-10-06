@@ -55,12 +55,14 @@
                 return response.json();
             }
             })
-            .then(responseJson => generateMealRecipeHTML(responseJson))
+            .then(responseJson => {
+                STORE.mealRecipe = responseJson;
+                generateMealRecipeHTML(responseJson);
+            })
             .catch(err => {
             $('#js-error-message').text(`Something went wrong: ${err.message}`);
             });
-            //???update store w meal recipe details??
-            STORE.mealRecipe = response.json;
+            //???update store w meal recipe details??  
     }
 
     function getWinePairings() {
@@ -80,12 +82,14 @@
                 return response.json();
             }
             })
-            .then(responseJson => generateMealRecipeHTML(responseJson))
+            .then(responseJson => {
+                STORE.winePairings = responseJson;
+                generateMealRecipeHTML(responseJson);
+            })
             .catch(err => {
             $('#js-error-message').text(`Something went wrong: ${err.message}`);
             });
             //updates STORE w wine pairings????
-            STORE.winePairings = responseJson;
 
             console.log(STORE.winePairings);
             console.log(responseJson);
