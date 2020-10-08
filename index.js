@@ -70,7 +70,7 @@
         const params = {
             apiKey: apiKEY,
             //correct way to access this value????
-            tag: STORE.mealRecipe.recipes[0].extendedIngredients[0].name
+            food: STORE.mealRecipe.recipes[0].extendedIngredients[0].name
         }
         const queryString = formatQueryParams(params);
         const url = searchURL + '?' + queryString;
@@ -84,7 +84,6 @@
             .then(responseJson => {
                 STORE.winePairings = responseJson;
                 generateMealRecipeHTML(responseJson);
-                console.log(responseJson);
                 console.log(STORE.winePairings);
             })
             .catch(err => {
@@ -93,7 +92,7 @@
 
            
             
-            console.log(tag);
+            console.log(params.food);
     }
 
     function getDrinkRecipe () {
@@ -127,7 +126,15 @@
     //}
 
     function generateDrinkRecipeHTML (drinkRecipe) {
+        let ingredientList = '';
+        let recipeInstructions = '';
         //creates HTML for drink recipe
+        $('#drinkResults').html(`<p> Cocktail Name: ${drinkRecipe.drinks[0].strDrink}</p>`);
+        for (let i=0; i<15; i++) {
+            let ingredient = "strIngredient" + i;
+            ingredientList += `<li>${(ingredient).val()}</li>`;
+        }
+        return ingredientList;
         console.log(drinkRecipe);
     }
 
