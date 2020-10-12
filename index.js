@@ -115,10 +115,9 @@
             $("#drinkResults").html(generateDrinkRecipeHTML(responseJson));
         })
         .catch(err => {
-        $('#js-error-message').text(`Something went wrong: ${err.message}`);
+            $('#js-error-message').text(`Something went wrong: ${err.message}`);
+            console.log(err.message);
         });
-        //update STORE w recipe details??
-        
     }
 
     function generateMealRecipeHTML (mealRecipe) {
@@ -127,14 +126,15 @@
         let recipeInstructions = mealRecipe.recipes[0].instructions;
         console.log(recipeInstructions);
         console.log(mealRecipe.recipes[0].title);
-        console.log(ingredientList);
+        //console.log(ingredientList);
+        console.log(mealRecipe.recipes[0])
         for (let i=0; i<mealRecipe.recipes[0].extendedIngredients.length; i++) {
             ingredientList += `<li>${mealRecipe.recipes[0].extendedIngredients[i].original}</li>`;
         }
+        console.log(ingredientList);
         return `<p> Meal Name: ${mealRecipe.recipes[0].title}</p>
             <ul id="ingredients">${ingredientList}</ul>
             ${recipeInstructions}`
-    //why is recipes undefined???
     }
 
     //function generateWinePairingsHTML () {
