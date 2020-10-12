@@ -128,7 +128,7 @@
         console.log(recipeInstructions);
         console.log(mealRecipe.recipes[0].title);
         console.log(ingredientList);
-        for (let i=0; i<recipes[0].extendedIngredients.length; i++) {
+        for (let i=0; i<mealRecipe.recipes[0].extendedIngredients.length; i++) {
             ingredientList += `<li>${mealRecipe.recipes[0].extendedIngredients[i].original}</li>`;
         }
         return `<p> Meal Name: ${mealRecipe.recipes[0].title}</p>
