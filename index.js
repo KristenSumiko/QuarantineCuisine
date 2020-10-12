@@ -64,6 +64,16 @@
             });
     }
 
+    //function determineFoodForWinePairing(recipe) {
+        //let food = "";
+    //SWITCH FOR AND IF STATEMENTS.
+        //for (i=0; i<recipes[0].extendedIngredients.length; i++) {
+            //if (recipes[0].extendedIngredients[i].aisle !== "Meat") {
+                //
+            //}
+        //}
+    //}
+
     function getWinePairings() {
         const apiKEY = 'f8ce37b549224d84a98a622cf58e012a';
         const searchURL = 'https://api.spoonacular.com/food/wine/pairing';
@@ -84,14 +94,10 @@
             .then(responseJson => {
                 STORE.winePairings = responseJson;
                 generateMealRecipeHTML(responseJson);
-                console.log(STORE.winePairings);
             })
             .catch(err => {
             $('#js-error-message').text(`Something went wrong: ${err.message}`);
             });
-
-           
-            
             console.log(params.food);
     }
 
@@ -106,7 +112,7 @@
         })
         .then(responseJson => {
             STORE.drinkChoice = responseJson;
-            generateDrinkRecipeHTML(responseJson);
+            $("#drinkResults").html(generateDrinkRecipeHTML(responseJson));
         })
         .catch(err => {
         $('#js-error-message').text(`Something went wrong: ${err.message}`);
@@ -117,25 +123,41 @@
 
     function generateMealRecipeHTML (mealRecipe) {
         //looks at meal recipe data in STORE and returns HTML
-        console.log(mealRecipe);
+        let ingredientList = '';
+        let recipeInstructions = mealRecipe.recipes[0].instructions;
+        console.log(recipeInstructions);
+        console.log(mealRecipe.recipes[0].title);
+        console.log(ingredientList);
+        for (let i=0; i<recipes[0].extendedIngredients.length; i++) {
+            ingredientList += `<li>${mealRecipe.recipes[0].extendedIngredients[i].original}</li>`;
+        }
+        return `<p> Meal Name: ${mealRecipe.recipes[0].title}</p>
+            <ul id="ingredients">${ingredientList}</ul>
+            ${recipeInstructions}`
+    //why is recipes undefined???
     }
 
     //function generateWinePairingsHTML () {
         //loops through wine pairings in STORE and creates HTML
+
         //
     //}
 
     function generateDrinkRecipeHTML (drinkRecipe) {
         let ingredientList = '';
-        let recipeInstructions = '';
+        let recipeInstructions = drinkRecipe.drinks[0].strInstructions;
         //creates HTML for drink recipe
-        $('#drinkResults').html(`<p> Cocktail Name: ${drinkRecipe.drinks[0].strDrink}</p>`);
-        for (let i=0; i<15; i++) {
-            let ingredient = "strIngredient" + i;
-            ingredientList += `<li>${(ingredient).val()}</li>`;
+        for (let i=1; i<=15; i++) {
+            let ingredient = drinkRecipe.drinks[0]["strIngredient" + i];
+            let measurement = drinkRecipe.drinks[0]["strMeasure" + i];
+            if (ingredient !== null) {
+                ingredientList += `<li>${ingredient}, ${measurement}</li>`;
+            }
         }
-        return ingredientList;
-        console.log(drinkRecipe);
+        return `<p> Cocktail Name: ${drinkRecipe.drinks[0].strDrink}</p>
+            <p> Ingredients: </p>
+            <ul id="ingredients">${ingredientList}</ul>
+            <p> ${recipeInstructions}</p>`
     }
 
     function showDrinkChoices () {
