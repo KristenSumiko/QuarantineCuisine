@@ -1,8 +1,7 @@
-//WRAP IN STRICT FUNCTION
 (function () {
     'use strict';
 
-    function formatQueryParams (params) {
+    function formatQueryParams(params) {
         const queryItems = Object.keys(params)
             .map(key => `${key}=${params[key]}`);
         return queryItems.join('&');
@@ -11,7 +10,7 @@
     function handleSearch () {  
         $('main').on('submit', '#recipeSearch', function(event) {
             event.preventDefault();
-            $('.cook').addClass('hidden')
+            $('.cook').addClass('hidden');
             getMealRecipe ();
             showDrinkChoices ();
             handleNewSearch ();
@@ -29,7 +28,7 @@
             if (drinkChoice == $(`input[value=mixedDrink]:checked`).val()) {
                 $('#drinkResults').html(getDrinkRecipe());
             }
-        })
+        });
     }
 
     function getMealRecipe() {
@@ -53,7 +52,6 @@
             .then(responseJson => {
                 STORE.mealRecipe = responseJson;
                 $('#mealRecipeResults').html(generateMealRecipeHTML(responseJson));
-                getWinePairings ();
             })
             .catch(err => {
             $('#js-error-message').text(`Something went wrong: ${err.message}`);
@@ -61,7 +59,7 @@
     }
 
     function determineFoodForWinePairing() {
-        let food = ''
+        let food = '';
         for (let i=0; i<STORE.mealRecipe.recipes[0].extendedIngredients.length; i++) {
             if (STORE.mealRecipe.recipes[0].extendedIngredients[i].aisle == "Meat") {
                 food = STORE.mealRecipe.recipes[0].extendedIngredients[i].name;
@@ -76,12 +74,11 @@
         const params = {
             apiKey: apiKEY,
             food: determineFoodForWinePairing(),
-        }
+        };
         const queryString = formatQueryParams(params);
         const url = searchURL + '?' + queryString;
-        //searches spoonacular API for wine pairings
         if ( !params.food) {
-            $('#drinkResults').html(`<p>Sorry no wine pairing found. Perhaps try a mixed drink :-)</p>`)
+            $('#drinkResults').html(`<p>Sorry no wine pairing found. Perhaps try a mixed drink :-)</p>`);
         }
         else {
             fetch(url)
@@ -104,7 +101,7 @@
 
     function getDrinkRecipe () {
         //searches the cocktail db API for ramdon drink recipe
-        const url = `https://www.thecocktaildb.com/api/json/v1/1/random.php`
+        const url = `https://www.thecocktaildb.com/api/json/v1/1/random.php`;
         fetch(url)
         .then(response => {
             if (response.ok) {
@@ -126,7 +123,7 @@
         let recipeInstructions = mealRecipe.recipes[0].instructions;
         console.log(recipeInstructions);
         console.log(mealRecipe.recipes[0].title);
-        console.log(mealRecipe.recipes[0])
+        console.log(mealRecipe.recipes[0]);
         for (let i=0; i<mealRecipe.recipes[0].extendedIngredients.length; i++) {
             ingredientList += `<li>${mealRecipe.recipes[0].extendedIngredients[i].original}</li>`;
         }
