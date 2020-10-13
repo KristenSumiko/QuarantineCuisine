@@ -9,28 +9,25 @@
     }
 
     function handleSearch () {  
-        //listens to meal form for when Search button is pressed {
-        $('form').submit( event => {
+        $('main').on('submit', '#recipeSearch', function(event) {
             event.preventDefault();
-            //calls functions to get recipes show drink choices
-            $('.cook').addClass('hidden');
+            $('.cook').addClass('hidden')
             getMealRecipe ();
-            getDrinkRecipe ();
-            //shows drink form previously hidden
             showDrinkChoices ();
+            handleNewSearch ();
         });
         
     }
 
     function handleDrinkChoice () {
-        $('main').on('submit', '#drinkChoice', function(event) {
+        $('main').on('submit', '#drinkSearch', function(event) {
             event.preventDefault();
             let drinkChoice = $(`input[name=drinkType]:checked`).val();
             if (drinkChoice == $(`input[value=wine]:checked`).val()) {
-                $('#drinkResults').html(generateWinePairingsHTML());
+                $('#drinkResults').html(getWinePairings());
             }
-            else {
-                $('#drinkResults').html(generateDrinkRecipeHTML());
+            if (drinkChoice == $(`input[value=mixedDrink]:checked`).val()) {
+                $('#drinkResults').html(getDrinkRecipe());
             }
         })
     }
@@ -47,7 +44,6 @@
         };
         const queryString = formatQueryParams(params);
         const url = searchURL + '?' + queryString;
-        //searches spoonacular API for random food recipe
         fetch(url)
             .then(response => {
             if (response.ok) {
@@ -56,7 +52,7 @@
             })
             .then(responseJson => {
                 STORE.mealRecipe = responseJson;
-                generateMealRecipeHTML(responseJson);
+                $('#mealRecipeResults').html(generateMealRecipeHTML(responseJson));
                 getWinePairings ();
             })
             .catch(err => {
@@ -64,41 +60,46 @@
             });
     }
 
-    //function determineFoodForWinePairing(recipe) {
-        //let food = "";
-    //SWITCH FOR AND IF STATEMENTS.
-        //for (i=0; i<recipes[0].extendedIngredients.length; i++) {
-            //if (recipes[0].extendedIngredients[i].aisle !== "Meat") {
-                //
-            //}
-        //}
-    //}
+    function determineFoodForWinePairing() {
+        let food = ''
+        for (let i=0; i<STORE.mealRecipe.recipes[0].extendedIngredients.length; i++) {
+            if (STORE.mealRecipe.recipes[0].extendedIngredients[i].aisle == "Meat") {
+                food = STORE.mealRecipe.recipes[0].extendedIngredients[i].name;
+            }
+        }
+        return food;
+    }
 
     function getWinePairings() {
         const apiKEY = 'f8ce37b549224d84a98a622cf58e012a';
         const searchURL = 'https://api.spoonacular.com/food/wine/pairing';
         const params = {
             apiKey: apiKEY,
-            //correct way to access this value????
-            food: STORE.mealRecipe.recipes[0].extendedIngredients[0].name
+            food: determineFoodForWinePairing(),
         }
         const queryString = formatQueryParams(params);
         const url = searchURL + '?' + queryString;
         //searches spoonacular API for wine pairings
-        fetch(url)
-            .then(response => {
-            if (response.ok) {
-                return response.json();
-            }
-            })
-            .then(responseJson => {
-                STORE.winePairings = responseJson;
-                generateMealRecipeHTML(responseJson);
-            })
-            .catch(err => {
-            $('#js-error-message').text(`Something went wrong: ${err.message}`);
-            });
-            console.log(params.food);
+        if ( !params.food) {
+            $('#drinkResults').html(`<p>Sorry no wine pairing found. Perhaps try a mixed drink :-)</p>`)
+        }
+        else {
+            fetch(url)
+                .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                })
+                .then(responseJson => {
+                    STORE.winePairings = responseJson;
+                    $("#drinkResults").html(generateWinePairingsHTML(responseJson));
+                    console.log(responseJson);
+                })
+                .catch(err => {
+                $('#js-error-message').text(`Something went wrong: ${err.message}`);
+                });
+                console.log(params.food);
+        }
     }
 
     function getDrinkRecipe () {
@@ -121,32 +122,29 @@
     }
 
     function generateMealRecipeHTML (mealRecipe) {
-        //looks at meal recipe data in STORE and returns HTML
         let ingredientList = '';
         let recipeInstructions = mealRecipe.recipes[0].instructions;
         console.log(recipeInstructions);
         console.log(mealRecipe.recipes[0].title);
-        //console.log(ingredientList);
         console.log(mealRecipe.recipes[0])
         for (let i=0; i<mealRecipe.recipes[0].extendedIngredients.length; i++) {
             ingredientList += `<li>${mealRecipe.recipes[0].extendedIngredients[i].original}</li>`;
         }
         console.log(ingredientList);
         return `<p> Meal Name: ${mealRecipe.recipes[0].title}</p>
+            <p> Ingredients: </p>
             <ul id="ingredients">${ingredientList}</ul>
             ${recipeInstructions}`
     }
 
-    //function generateWinePairingsHTML () {
-        //loops through wine pairings in STORE and creates HTML
-
-        //
-    //}
+    function generateWinePairingsHTML () {
+        let pairingText = STORE.winePairings.pairingText;
+        return `<p>Suggested wine pairings: ${pairingText}</p>`;
+    }
 
     function generateDrinkRecipeHTML (drinkRecipe) {
         let ingredientList = '';
         let recipeInstructions = drinkRecipe.drinks[0].strInstructions;
-        //creates HTML for drink recipe
         for (let i=1; i<=15; i++) {
             let ingredient = drinkRecipe.drinks[0]["strIngredient" + i];
             let measurement = drinkRecipe.drinks[0]["strMeasure" + i];
@@ -161,12 +159,12 @@
     }
 
     function showDrinkChoices () {
-        //shows drinks form previously hidden
         $('.drink').removeClass('hidden');
+        $('.newRecipe').removeClass('hidden');
+        handleDrinkChoice();
     }
 
     function handleNewSearch() {
-        // brings back to homepage and clears all previous inputs and ??STORE
         $('main').on('click', '.newRecipe', function (event) {
             $('[name="mealType"] input:radio').removeAttr('checked');
             $('[name="intolerance"] input:checkbox').removeAttr('checked');
@@ -177,11 +175,9 @@
         })
     }
 
-    //READY FUNCTION
     $(function () {
         console.log('App loaded! Waiting for submit!');
         handleSearch();
-        handleDrinkChoice ();
     });
 
 }());
