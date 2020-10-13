@@ -8,7 +8,7 @@
     }
 
     function handleSearch () {  
-        $('main').on('submit', '#recipeSearch', function(event) {
+        $('.cook').on('click', '#recipeSearch', function(event) {
             event.preventDefault();
             $('.cook').addClass('hidden');
             getMealRecipe ();
@@ -19,7 +19,7 @@
     }
 
     function handleDrinkChoice () {
-        $('main').on('submit', '#drinkSearch', function(event) {
+        $('body').on('click', '#drinkSearch', function(event) {
             event.preventDefault();
             let drinkChoice = $(`input[name=drinkType]:checked`).val();
             if (drinkChoice == $(`input[value=wine]:checked`).val()) {
@@ -51,7 +51,8 @@
             })
             .then(responseJson => {
                 STORE.mealRecipe = responseJson;
-                $('#mealRecipeResults').html(generateMealRecipeHTML(responseJson));
+                $('.mealRecipeResults').removeClass('hidden');
+                $('.mealRecipeResults').html(generateMealRecipeHTML(responseJson));
             })
             .catch(err => {
             $('#js-error-message').text(`Something went wrong: ${err.message}`);
@@ -149,6 +150,7 @@
                 ingredientList += `<li>${ingredient}, ${measurement}</li>`;
             }
         }
+        console.log(ingredientList);
         return `<p> Cocktail Name: ${drinkRecipe.drinks[0].strDrink}</p>
             <p> Ingredients: </p>
             <ul id="ingredients">${ingredientList}</ul>
@@ -162,10 +164,11 @@
     }
 
     function handleNewSearch() {
-        $('main').on('click', '.newRecipe', function (event) {
+        $('body').on('click', '.newRecipe', function (event) {
             $('[name="mealType"] input:radio').removeAttr('checked');
             $('[name="intolerance"] input:checkbox').removeAttr('checked');
             $('[name="drinkType"] input:radio').removeAttr('checked');
+            $('.mealRecipeResults').addClass('hidden');
             $('.cook').removeClass('hidden');
             $('.drink').addClass('hidden');
             $('.newRecipe').addClass('hidden');

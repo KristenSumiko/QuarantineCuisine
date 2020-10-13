@@ -7,12 +7,13 @@
     <link rel="stylesheet" href="index.css">
     <link rel="shortcut icon" href="favicon.ico">
 </head>
+<body>
 <header><h1>Quarantine Cuisine</h1></header>
 
 <div id='js-error-message'></div>
 
 <h2>Cooking during quaratine? Let's do it!</h2>
-<div id="mealRecipeResults"></div>
+<div class="mealRecipeResults hidden"></div>
 <form class="cook">
     <div class="js-mealTypes">
         <p>What meal are you making?</p>
@@ -60,7 +61,7 @@
         <label for="Wheat">Wheat</label>
     </div>
 
-    <input type="submit" id="recipeSearch" value="Search">
+    <button type="submit" id="recipeSearch" value="Search">Search</button>
 </form>
 
 <div class="drink hidden">
@@ -79,7 +80,6 @@
 
 <button class="newRecipe hidden" type="button">New Recipe Search</button>
 
-<body>
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
     <script src="index.js"></script>
     <script src="STORE.js"></script>
