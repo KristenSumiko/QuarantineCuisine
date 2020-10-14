@@ -165,13 +165,8 @@
 
     function handleNewSearch() {
         $('body').on('click', '.newRecipe', function (event) {
-            // $('[name="mealType"] input:radio').removeAttr('checked');
-            // $('[name="intolerance"] input:checkbox').removeAttr('checked');
-            // $('[name="drinkType"] input:radio').removeAttr('checked');
-            $('input[type="radio"][name="mealType"]').removeAttr('checked');
-            // $('[name="mealType"] input:radio').prop('checked', false);
-            // $('[name="intolerance"] input:checkbox').prop('checked', false);
-            // $('[name="drinkType"] input:radio').prop('checked', false);  $('input:radio').removeAttr('checked');
+            $('input[type=checkbox]').prop('checked',false);
+            $('input[type=radio]').prop('checked',false);
             $('.mealRecipeResults').addClass('hidden');
             $('.cook').removeClass('hidden');
             $('.drink').addClass('hidden');
