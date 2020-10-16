@@ -36,13 +36,16 @@
         const searchURL = 'https://api.spoonacular.com/recipes/random';
         const mealType = $(`input[name=mealType]:checked`).val();
         const tags = $(`input[name=intolerance]:checked`).map((index,checkbox) => $(checkbox).val()).get();
+        const diet = $(`input[name=diet]:checked`).map((index,checkbox) => $(checkbox).val()).get();
         tags.push(mealType);
+        tags.push(diet);
         const params = {
             apiKey: apiKEY,
-            tags: tags.join(',')
+            tags: tags.join(','),
         };
         const queryString = formatQueryParams(params);
         const url = searchURL + '?' + queryString;
+        console.log(url);
         fetch(url)
             .then(response => {
             if (response.ok) {
@@ -132,7 +135,7 @@
         return `<p> Meal Name: ${mealRecipe.recipes[0].title}</p>
             <p> Ingredients: </p>
             <ul id="ingredients">${ingredientList}</ul>
-            ${recipeInstructions}`
+            ${recipeInstructions.replace('\n', '<br>')}`
     }
 
     function generateWinePairingsHTML () {
@@ -171,6 +174,7 @@
             $('.cook').removeClass('hidden');
             $('.drink').addClass('hidden');
             $('.newRecipe').addClass('hidden');
+            $('#drinkResults').html('');
         })
     }
 
