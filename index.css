@@ -1,42 +1,56 @@
 * {
     box-sizing: border-box;
-  }
+    font-family: 'Indie Flower', cursive;
+    background-color: rgb(245, 245, 153);
+}
   
-  /*body {
-    font-family: 'Roboto', sans-serif;
-  }
-  
-  button, input[type="text"] {
-    padding: 5px;
-  }
+header, main {
+  text-align: center;
+}
 
-  input {
-      display: block;
-  }
-  
-  button:hover {
-    cursor: pointer;
-  }
-  
-  .container {
-    max-width: 600px;
-    margin: 0 auto;
-  }*/
-  
-  #js-error-message {
-      color: red;
-  }
-  
-  .hidden {
-    display: none;
-  }
+h1, h2 {
+  color: blue;
+}
 
-  .mealRecipeResults, .cook, .drink {
-    border: 1px solid black;
-    padding: 0 10px 10px;
-    margin: 5px;
-  }
+ul, .instructions {
+  list-style-type: none;
+  text-align: left;
+  padding: 0;
+}
 
-  button {
-    display: block;
-  }
+ol {
+  padding: 0 20px
+}
+
+.bold {
+  font-weight: bold;
+  color: blue
+}
+
+button {
+  margin: auto;
+  font-weight: bold;
+  border-color: blue;
+  border-radius: 5px;
+  color: red;
+}
+
+#js-error-message {
+    color: red;
+    font-weight: bold;
+}
+  
+.hidden {
+  display: none;
+}
+
+.mealRecipeResults, .cook, .drink {
+  border: 1px solid blue;
+  border-radius: 5px;
+  padding: 0 10px 10px;
+  margin: 5px;
+}
+
+button {
+  display: block;
+}

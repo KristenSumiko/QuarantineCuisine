@@ -1,1 +1,1 @@
-API Hack Capstone APP designed for users that choose to dine in during the current pandemic. It allows them to retrieve a random meal recipe, a cocktail recipe as well if they choose.
+API Hack Capstone APP designed for users that choose to dine in during the current pandemic. It allows them to retrieve a random meal recipe, a cocktail recipe or wine pairings as well if they choose.

@@ -22,12 +22,16 @@
         $('body').on('click', '#drinkSearch', function(event) {
             event.preventDefault();
             let drinkChoice = $(`input[name=drinkType]:checked`).val();
+            if (!drinkChoice) {
+                $('#drinkResults').html(`<p class="error">Select drink choice.`);
+            }
             if (drinkChoice == $(`input[value=wine]:checked`).val()) {
                 $('#drinkResults').html(getWinePairings());
             }
             if (drinkChoice == $(`input[value=mixedDrink]:checked`).val()) {
                 $('#drinkResults').html(getDrinkRecipe());
             }
+
         });
     }
 
@@ -82,7 +86,7 @@
         const queryString = formatQueryParams(params);
         const url = searchURL + '?' + queryString;
         if ( !params.food) {
-            $('#drinkResults').html(`<p>Sorry no wine pairing found. Perhaps try a mixed drink :-)</p>`);
+            $('#drinkResults').html(`<p>Sorry no wine pairing found.<br>Perhaps try a mixed drink :-)</p>`);
         }
         else {
             fetch(url)
@@ -132,15 +136,20 @@
             ingredientList += `<li>${mealRecipe.recipes[0].extendedIngredients[i].original}</li>`;
         }
         console.log(ingredientList);
-        return `<p> Meal Name: ${mealRecipe.recipes[0].title}</p>
-            <p> Ingredients: </p>
+        return `<p class="bold"> Meal Name: ${mealRecipe.recipes[0].title}</p>
+            <p class="bold"> Ingredients: </p>
             <ul id="ingredients">${ingredientList}</ul>
-            ${recipeInstructions.replace('\n', '<br>')}`
+            <div class="instructions">${recipeInstructions.replace('\n', '<br>')}</div>`
+            //add in to also replace <ol> w <ul>
     }
 
     function generateWinePairingsHTML () {
         let pairingText = STORE.winePairings.pairingText;
-        return `<p>Suggested wine pairings: ${pairingText}</p>`;
+        if (pairingText === "") {
+            return `<p>Sorry no wine pairing found.<br>Perhaps try a mixed drink :-)</p>`;
+        } else {
+            return `<p>Suggested wine pairings: ${pairingText}</p>`;
+        }
     }
 
     function generateDrinkRecipeHTML (drinkRecipe) {
@@ -154,8 +163,8 @@
             }
         }
         console.log(ingredientList);
-        return `<p> Cocktail Name: ${drinkRecipe.drinks[0].strDrink}</p>
-            <p> Ingredients: </p>
+        return `<p class="bold"> Cocktail Name: ${drinkRecipe.drinks[0].strDrink}</p>
+            <p class="bold"> Ingredients: </p>
             <ul id="ingredients">${ingredientList}</ul>
             <p> ${recipeInstructions}</p>`
     }
