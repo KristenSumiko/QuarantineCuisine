@@ -23,7 +23,8 @@
             event.preventDefault();
             let drinkChoice = $(`input[name=drinkType]:checked`).val();
             if (!drinkChoice) {
-                $('#drinkResults').html(`<p class="error">Select drink choice.`);
+                $('#drinkResults').html(`<p class="error">Select drink choice.</p>`);
+            return;
             }
             if (drinkChoice == $(`input[value=wine]:checked`).val()) {
                 $('#drinkResults').html(getWinePairings());
