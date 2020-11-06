@@ -8,7 +8,7 @@
     }
 
     function handleSearch () {  
-        $('.cook').on('click', '#recipeSearch', function(event) {
+        $('body').on('submit', '.cook', function(event) {
             event.preventDefault();
             $('.cook').addClass('hidden');
             getMealRecipe ();
@@ -19,20 +19,15 @@
     }
 
     function handleDrinkChoice () {
-        $('body').on('click', '#drinkSearch', function(event) {
+        $('body').on('submit', '#drinkChoice', function(event) {
             event.preventDefault();
-            let drinkChoice = $(`input[name=drinkType]:checked`).val();
-            if (!drinkChoice) {
-                $('#drinkResults').html(`<p class="error">Select drink choice.</p>`);
-            return;
-            }
-            if (drinkChoice == $(`input[value=wine]:checked`).val()) {
+            let drinkChoice = $('input[name=drinkType]:checked').val();
+            if (drinkChoice == $('input[value=wine]:checked').val()) {
                 $('#drinkResults').html(getWinePairings());
             }
-            if (drinkChoice == $(`input[value=mixedDrink]:checked`).val()) {
+            if (drinkChoice == $('input[value=mixedDrink]:checked').val()) {
                 $('#drinkResults').html(getDrinkRecipe());
             }
-
         });
     }
 
@@ -59,6 +54,7 @@
             })
             .then(responseJson => {
                 STORE.mealRecipe = responseJson;
+                console.log(STORE.mealRecipe);
                 $('.mealRecipeResults').removeClass('hidden');
                 $('.mealRecipeResults').html(generateMealRecipeHTML(responseJson));
             })
@@ -69,10 +65,10 @@
 
     function determineFoodForWinePairing() {
         let food = '';
-        for (let i=0; i<STORE.mealRecipe.recipes[0].extendedIngredients.length; i++) {
-            if (STORE.mealRecipe.recipes[0].extendedIngredients[i].aisle == "Meat") {
-                food = STORE.mealRecipe.recipes[0].extendedIngredients[i].name;
-            }
+            for (let i=0; i<STORE.mealRecipe.recipes[0].extendedIngredients.length; i++) {
+                if (STORE.mealRecipe.recipes[0].extendedIngredients[i].aisle == "Meat") {
+                    food = STORE.mealRecipe.recipes[0].extendedIngredients[i].name;
+                }
         }
         return food;
     }
@@ -84,6 +80,7 @@
             apiKey: apiKEY,
             food: determineFoodForWinePairing(),
         };
+        console.log (params.food);
         const queryString = formatQueryParams(params);
         const url = searchURL + '?' + queryString;
         if ( !params.food) {
@@ -98,18 +95,17 @@
                 })
                 .then(responseJson => {
                     STORE.winePairings = responseJson;
+                    console.log (responseJson);
                     $("#drinkResults").html(generateWinePairingsHTML(responseJson));
-                    console.log(responseJson);
                 })
                 .catch(err => {
                 $('#js-error-message').text(`Something went wrong: ${err.message}`);
                 });
-                console.log(params.food);
         }
+        
     }
 
     function getDrinkRecipe () {
-        //searches the cocktail db API for ramdon drink recipe
         const url = `https://www.thecocktaildb.com/api/json/v1/1/random.php`;
         fetch(url)
         .then(response => {
@@ -119,29 +115,31 @@
         })
         .then(responseJson => {
             STORE.drinkChoice = responseJson;
+            console.log (responseJson);
             $("#drinkResults").html(generateDrinkRecipeHTML(responseJson));
         })
         .catch(err => {
             $('#js-error-message').text(`Something went wrong: ${err.message}`);
-            console.log(err.message);
         });
     }
 
     function generateMealRecipeHTML (mealRecipe) {
         let ingredientList = '';
         let recipeInstructions = mealRecipe.recipes[0].instructions;
-        console.log(recipeInstructions);
-        console.log(mealRecipe.recipes[0].title);
-        console.log(mealRecipe.recipes[0]);
         for (let i=0; i<mealRecipe.recipes[0].extendedIngredients.length; i++) {
             ingredientList += `<li>${mealRecipe.recipes[0].extendedIngredients[i].original}</li>`;
         }
-        console.log(ingredientList);
-        return `<p class="bold"> Meal Name: ${mealRecipe.recipes[0].title}</p>
-            <p class="bold"> Ingredients: </p>
-            <ul id="ingredients">${ingredientList}</ul>
-            <div class="instructions">${recipeInstructions.replace('\n', '<br>')}</div>`
-            //add in to also replace <ol> w <ul>
+        return `<p class="title bold"> Meal Name: ${mealRecipe.recipes[0].title}</p>
+            <div class="row">
+                <div class="ingredients">
+                    <p class="title bold"> Ingredients: </p>
+                    <ul id="ingredients">${ingredientList}</ul>
+                </div>
+                <div class="title recipe">
+                    <p class="bold"> Recipe: </p>
+                    <div class="instructions">${recipeInstructions.replace('\n', '<br>')}</div>
+                </div>
+            </div>`
     }
 
     function generateWinePairingsHTML () {
@@ -163,10 +161,9 @@
                 ingredientList += `<li>${ingredient}, ${measurement}</li>`;
             }
         }
-        console.log(ingredientList);
-        return `<p class="bold"> Cocktail Name: ${drinkRecipe.drinks[0].strDrink}</p>
+        return `<p class="title bold"> Cocktail Name: ${drinkRecipe.drinks[0].strDrink}</p>
             <p class="bold"> Ingredients: </p>
-            <ul id="ingredients">${ingredientList}</ul>
+            <ul id="ingredients center">${ingredientList}</ul>
             <p> ${recipeInstructions}</p>`
     }
 

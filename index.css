@@ -33,6 +33,7 @@ button {
   border-color: blue;
   border-radius: 5px;
   color: red;
+  background-color: rgb(225, 225, 250);
 }
 
 #js-error-message, .error {
@@ -54,3 +55,50 @@ button {
 button {
   display: block;
 }
+
+@media screen and (min-width: 600px) {
+  .mealRecipeResults, .cook, .drink, .align {
+    max-width: 365px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  p {
+    max-width: 575px;
+    margin: 20px auto;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+
+  h1 {
+    font-size: 2.5em;
+  }
+
+  .title {
+    font-size: 1.15em;
+  }
+
+  .mealRecipeResults, .cook {
+    max-width: 980px;
+    margin: 5px auto;
+  }
+
+  .drink {
+    max-width: 600px;
+  }
+  .row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  .ingredients {
+    flex: 1;
+  }
+
+  .recipe {
+    flex: 2;
+  }
+}
+

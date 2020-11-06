@@ -11,95 +11,99 @@
 <body>
 <header><h1>Quarantine Cuisine</h1></header>
 <main>
-<div id='js-error-message'></div>
+    <div id='js-error-message'></div>
 
-<h2>Cooking during quaratine? Let's&nbsp;do&nbsp;it!</h2>
-<p>This application is for anyone looking to try new recipes while quarentining at home. As we follow new rules and patiently wait for this pandemic to subside, there is no need to repeat the same meals. This app gives you a new recipe everytime!</p>
-<div class="mealRecipeResults hidden"></div>
-<form class="cook">
-    <div class="js-mealTypes">
-        <p class="bold">What meal are you making?</p>
-        <label><input type='radio' name='mealType' value='breakfast' required>Breakfast</label>
-        <label><input type='radio' name='mealType' value='lunch' required>Lunch</label>
-        <label><input type='radio' name='mealType' value='dinner' required>Dinner</label>
-    </div>
+    <h2>Cooking during quarantine? Let's&nbsp;do&nbsp;it!</h2>
+    <p>This application is for anyone looking to try new recipes while quarentining at home. As we follow new rules and patiently wait for this pandemic to subside, there is no need to repeat the same meals. This app gives you a new recipe everytime!</p>
+    <div class="mealRecipeResults hidden"></div>
+    <form class="cook">
+        <div class="js-mealTypes">
+            <p class="title bold">What meal are you making?</p>
+            <label> <input type="radio" name="mealType" value="breakfast" required> Breakfast </label>
+            <label> <input type="radio" name="mealType" value="lunch" required> Lunch </label>
+            <label> <input type="radio" name="mealType" value="dinner" required> Dinner </label>
+        </div>
 
-    <div class="js-intolerances">
-        <p class="bold">Any allergies?</p>
-        <ul>
-            <li><input type="checkbox" name="intolerance" id="dairy" value="Dairy">
-            <label for="dairy">Dairy</label></li>
-        
-            <li><input type="checkbox" name="intolerance" id="egg" value="Egg">
-            <label for="egg">Egg</label></li>
+    <div class="row">
+        <div class="js-intolerances">
+                <p class="title bold">Any allergies?</p>
+                <ul>
+                    <li><input type="checkbox" name="intolerance" id="dairy" value="Dairy">
+                    <label for="dairy">Dairy</label></li>
+                
+                    <li><input type="checkbox" name="intolerance" id="egg" value="Egg">
+                    <label for="egg">Egg</label></li>
 
-            <li><input type="checkbox" name="intolerance" id="grain" value="Grain">
-            <label for="grain">Grain</label></li>
+                    <li><input type="checkbox" name="intolerance" id="grain" value="Grain">
+                    <label for="grain">Grain</label></li>
 
-            <li><input type="checkbox" name="intolerance" id="peanut" value="Peanut">
-            <label for="peanut">Peanut</label></li>
-        
-            <li><input type="checkbox" name="intolerance" id="seafood" value="Seafood">
-            <label for="seafood">Seafood</label></li>
+                    <li><input type="checkbox" name="intolerance" id="peanut" value="Peanut">
+                    <label for="peanut">Peanut</label></li>
+                
+                    <li><input type="checkbox" name="intolerance" id="seafood" value="Seafood">
+                    <label for="seafood">Seafood</label></li>
 
-            <li><input type="checkbox" name="intolerance" id="sesame" value="Sesame">
-            <label for="sesame">Sesame</label></li>
+                    <li><input type="checkbox" name="intolerance" id="sesame" value="Sesame">
+                    <label for="sesame">Sesame</label></li>
 
-            <li><input type="checkbox" name="intolerance" id="shellfish" value="Shellfish">
-            <label for="shellfish">Shellfish</label></li>
+                    <li><input type="checkbox" name="intolerance" id="shellfish" value="Shellfish">
+                    <label for="shellfish">Shellfish</label></li>
 
-            <li><input type="checkbox" name="intolerance" id="soy" value="Soy">
-            <label for="soy">Soy</label></li>
-        
-            <li><input type="checkbox" name="intolerance" id="sulfite" value="Sulfite">
-            <label for="sulfite">Sulfite</label></li>
+                    <li><input type="checkbox" name="intolerance" id="soy" value="Soy">
+                    <label for="soy">Soy</label></li>
+                
+                    <li><input type="checkbox" name="intolerance" id="sulfite" value="Sulfite">
+                    <label for="sulfite">Sulfite</label></li>
 
-            <li><input type="checkbox" name="intolerance" id="treeNut" value="Tree Nut">
-            <label for="treeNut">Tree Nut</label></li>
+                    <li><input type="checkbox" name="intolerance" id="treeNut" value="Tree Nut">
+                    <label for="treeNut">Tree Nut</label></li>
 
-            <li><input type="checkbox" name="intolerance" id="wheat" value="Wheat">
-            <label for="wheat">Wheat</label></li>
-        </ul>
-    </div>
+                    <li><input type="checkbox" name="intolerance" id="wheat" value="Wheat">
+                    <label for="wheat">Wheat</label></li>
+                </ul>
+            </div>
 
-    <div class="js-diets">
-        <p class="bold">On a diet?</p>
-        <ul class="diets">
-            <li><input type="checkbox" name="diet" id="glutenFree" value="Gluten Free">
-            <label for="glutenFree">Gluten Free</label></li>
+            <div class="js-diets">
+                <p class="title bold">On a diet?</p>
+                <ul class="diets">
+                    <li><input type="checkbox" name="diet" id="glutenFree" value="Gluten Free">
+                    <label for="glutenFree">Gluten Free</label></li>
 
-            <li><input type="checkbox" name="diet" id="ketogenic" value="Ketogenic">
-            <label for="ketogenic">Keto</label></li>
+                    <li><input type="checkbox" name="diet" id="ketogenic" value="Ketogenic">
+                    <label for="ketogenic">Keto</label></li>
 
-            <li><input type="checkbox" name="diet" id="vegetarian" value="Vegetarian">
-            <label for="vegetarian">Vegetarian</label></li>
+                    <li><input type="checkbox" name="diet" id="vegetarian" value="Vegetarian">
+                    <label for="vegetarian">Vegetarian</label></li>
 
-            <li><input type="checkbox" name="diet" id="vegan" value="Vegan">
-            <label for="vegan">Vegan</label></li>
+                    <li><input type="checkbox" name="diet" id="vegan" value="Vegan">
+                    <label for="vegan">Vegan</label></li>
 
-            <li><input type="checkbox" name="diet" id="pescetarian" value="Pescetarian">
-            <label for="pescetarian">Pescetarian</label></li>
-        </ul>
-    </div>
+                    <li><input type="checkbox" name="diet" id="pescetarian" value="Pescetarian">
+                    <label for="pescetarian">Pescetarian</label></li>
+                </ul>
+            </div>
+        </div>
 
-    <button type="submit" id="recipeSearch" value="Search">Search</button>
-</form>
-
-<div class="drink hidden">
-    <h2>Drinking during quarantine?</h2>
-    <form id="drinkChoice">
-        <p class="bold">Wine or Mixed drink?</p>
-
-        <label><input type='radio' name='drinkType' value='wine' required>Wine</label>
-        <label><input type='radio' name='drinkType' value='mixedDrink' required>Mixed Drink</label>
-        
-        <button type="submit" id="drinkSearch" value="Search">Search</button>
-
-        <div id="drinkResults"></div>
+        <button type="submit" id="recipeSearch" value="Search">Search</button>
     </form>
-</div>
 
-<button class="newRecipe hidden" type="button">New Recipe Search</button>
+    <div class="drink hidden">
+        <h2>Drinking during quarantine?</h2>
+        <form id="drinkChoice">
+            <p class="bold">Wine or Mixed drink?</p>
+
+            <label><input type='radio' name='drinkType' value='wine' required>Wine</label>
+            <label><input type='radio' name='drinkType' value='mixedDrink' required>Mixed Drink</label>
+            
+            <button type="submit" id="drinkSearch" value="Search">Search</button>
+
+            <div id="drinkResults"></div>
+        </form>
+    </div>
+
+    <div class="align">
+        <button class="newRecipe hidden" type="button">New Recipe Search</button>
+    </div>
 </main>
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
     <script src="index.js"></script>
