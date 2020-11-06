@@ -15,7 +15,6 @@
             showDrinkChoices ();
             handleNewSearch ();
         });
-        
     }
 
     function handleDrinkChoice () {
