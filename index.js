@@ -44,7 +44,6 @@
         };
         const queryString = formatQueryParams(params);
         const url = searchURL + '?' + queryString;
-        console.log(url);
         fetch(url)
             .then(response => {
             if (response.ok) {
@@ -53,7 +52,6 @@
             })
             .then(responseJson => {
                 STORE.mealRecipe = responseJson;
-                console.log(STORE.mealRecipe);
                 $('.mealRecipeResults').removeClass('hidden');
                 $('.mealRecipeResults').html(generateMealRecipeHTML(responseJson));
             })
@@ -79,7 +77,6 @@
             apiKey: apiKEY,
             food: determineFoodForWinePairing(),
         };
-        console.log (params.food);
         const queryString = formatQueryParams(params);
         const url = searchURL + '?' + queryString;
         if ( !params.food) {
@@ -94,7 +91,6 @@
                 })
                 .then(responseJson => {
                     STORE.winePairings = responseJson;
-                    console.log (responseJson);
                     $("#drinkResults").html(generateWinePairingsHTML(responseJson));
                 })
                 .catch(err => {
@@ -114,7 +110,6 @@
         })
         .then(responseJson => {
             STORE.drinkChoice = responseJson;
-            console.log (responseJson);
             $("#drinkResults").html(generateDrinkRecipeHTML(responseJson));
         })
         .catch(err => {
@@ -185,7 +180,6 @@
     }
 
     $(function () {
-        console.log('App loaded! Waiting for submit!');
         handleSearch();
     });
 
